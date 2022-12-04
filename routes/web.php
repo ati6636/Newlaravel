@@ -50,6 +50,8 @@ Route::post('/sendmessage', [HomeController::class, 'sendmessage'])->name('sendm
 Route::get('/product/{id}/{slug}', [HomeController::class, 'product'])->name('product');
 Route::get('/categoryproducts/{id}/{slug}', [HomeController::class, 'categoryproducts'])->name('categoryproducts');
 Route::get('/addtocart/{id}', [HomeController::class, 'addtocart'])->name('addtocart');
+Route::post('/getproduct', [HomeController::class, 'getproduct'])->name('getproduct');
+Route::get('/productlist/{search}', [HomeController::class, 'productlist'])->name('productlist');
 
 Route::prefix('myaccount')->namespace('myaccount')->middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('myprofile');

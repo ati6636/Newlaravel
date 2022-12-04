@@ -42,10 +42,33 @@ class HomeController extends Controller
         return view('home.index', $data);
     }
 
+    public function getproduct(Request $request)
+    {
+        $search = $request->input('search');
+
+        $count = Product::where('title', 'like', '%'.'search'.'%')->get()->count();
+        if ($count==1)
+        {
+            $data = Product::where('title', 'like', '%'.'search'.'%')->first();
+            return redirect()->route('product',['id'=>$data->id, 'slug'=>$data->slug]);
+        }
+        else
+        {
+           return redirect()->route('productlist',['search' => $search]);
+        }
+
+    }
+
+    public function productlist($search)
+    {
+        $datalist = Product::where('title', 'like', '%'.$search.'%')->get();
+        return view ('home.search_products',['search' => $search, 'datalist' => $datalist]);
+    }
+
     public function product($id, $slug)
     {
         $product = Product::find($id);
-        $imageList = Image::where('product_id',$id)->get();
+        $imageList = Image::where('product_id', $id)->get();
 
         return view('home.product_detail', ['product' => $product, 'imageList' => $imageList]);
 
@@ -61,8 +84,8 @@ class HomeController extends Controller
     public function categoryproducts($id, $slug)
     {
         $setting = Category::find($id);
-        $productList = Product::where('category_id',$id)->get();
-        return view('home.category_products', compact('productList','setting'));
+        $productList = Product::where('category_id', $id)->get();
+        return view('home.category_products', compact('productList', 'setting'));
     }
 
     public function about()
