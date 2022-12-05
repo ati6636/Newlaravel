@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Review;
 use App\Models\Image;
 use App\Models\Message;
 use App\Models\Product;
@@ -20,6 +21,16 @@ class HomeController extends Controller
     public static function getSetting()
     {
         return Setting::first();
+    }
+
+    public static function countreview($id)
+    {
+        return Review::where('product_id', $id)->count();
+    }
+
+    public static function averageview($id)
+    {
+        return Review::where('product_id', $id)->average('rate');
     }
 
     public function index()
@@ -69,8 +80,9 @@ class HomeController extends Controller
     {
         $product = Product::find($id);
         $imageList = Image::where('product_id', $id)->get();
+        $reviews = Review::where('product_id', $id)->get();
 
-        return view('home.product_detail', ['product' => $product, 'imageList' => $imageList]);
+        return view('home.product_detail', ['product' => $product, 'imageList' => $imageList, 'reviews' => $reviews]);
 
     }
 

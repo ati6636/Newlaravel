@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -52,9 +53,12 @@ Route::get('/categoryproducts/{id}/{slug}', [HomeController::class, 'categorypro
 Route::get('/addtocart/{id}', [HomeController::class, 'addtocart'])->name('addtocart');
 Route::post('/getproduct', [HomeController::class, 'getproduct'])->name('getproduct');
 Route::get('/productlist/{search}', [HomeController::class, 'productlist'])->name('productlist');
+Route::get('logout', [AdminHomeController::class, 'logout'])->name('admin.logout');
 
 Route::prefix('myaccount')->namespace('myaccount')->middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index'])->name('myprofile');
+    Route::get('/myreviews', [UserController::class, 'myreviews'])->name('myreviews');
+    Route::get('/destroymyreview/{id}', [UserController::class, 'destroymyreview'])->name('user_review_delete');
 });
 
 Route::prefix('user')->namespace('userprofile')->middleware('auth')->group(function () {
@@ -114,5 +118,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('admin_settings');
         Route::post('update/{id}', [SettingController::class, 'update'])->name('admin_setting_update');
+    });
+
+    Route::prefix('review')->group(function () {
+        Route::get('/', [ReviewController::class, 'index'])->name('admin_review');
+        Route::post('update/{id}', [ReviewController::class, 'update'])->name('admin_review_update');
+        Route::get('delete/{id}', [ReviewController::class, 'destroy'])->name('admin_review_delete');
+        Route::get('show/{id}', [ReviewController::class, 'show'])->name('admin_review_show');
     });
 });

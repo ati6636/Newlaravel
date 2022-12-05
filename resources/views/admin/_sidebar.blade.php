@@ -52,6 +52,15 @@
                 </li>
 
                 <li>
+                    <a href="{{route('admin_review')}}" class=" waves-effect">
+                        <i class="ri-calendar-2-line"></i>
+                        <span>Reviews</span>
+                    </a>
+                </li>
+
+                <li class="nav-header">LABELS</li>
+
+                <li>
                     <a href="{{route('admin_settings')}}" class=" waves-effect">
                         <i class="ri-calendar-2-line"></i>
                         <span>Settings</span>

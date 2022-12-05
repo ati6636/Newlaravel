@@ -64,7 +64,8 @@
                                             <i class="fa fa-search-plus"></i>
                                             Quick view
                                         </a>
-                                        <img src="{{\Illuminate\Support\Facades\Storage::url($daily->image)}}" height="435" alt="">
+                                        <img src="{{\Illuminate\Support\Facades\Storage::url($daily->image)}}"
+                                             height="435" alt="">
                                     </div>
                                     <div class="product-body">
                                         <h3 class="product-price">{{$daily->price}}
@@ -72,19 +73,24 @@
                                                 {{$daily->price * 1.2}}
                                             </del>
                                         </h3>
+                                        @php
+                                            $average = \App\Http\Controllers\HomeController::averageview($daily->id);
+                                            $countreview = \App\Http\Controllers\HomeController::countreview($daily->id);
+                                        @endphp
                                         <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o empty"></i>
+                                            <i class="fa fa-star @if($average<1) -o empty @endif"></i>
+                                            <i class="fa fa-star @if($average<2) -o empty @endif"></i>
+                                            <i class="fa fa-star @if($average<3) -o empty @endif"></i>
+                                            <i class="fa fa-star @if($average<4) -o empty @endif"></i>
+                                            <i class="fa fa-star @if($average<5) -o empty @endif"></i>
+                                            <i>{{ $countreview }}</i>
                                         </div>
                                         <h2 class="product-name"><a href="#">{{$daily->title}}</a></h2>
                                         <div class="product-btns">
                                             <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                             <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
                                             <a href="{{route('addtocart',$daily->id)}}" class="primary-btn add-to-cart">
-                                                <i  class="fa fa-shopping-cart"></i>
+                                                <i class="fa fa-shopping-cart"></i>
                                                 Add to Cart
                                             </a>
                                         </div>
@@ -119,35 +125,42 @@
                 </div>
                 <!-- section title -->
                 @foreach($lasts as $last)
-                <!-- Product Single -->
-                <div class="col-md-3 col-sm-6 col-xs-6">
-                    <div class="product product-single">
-                        <div class="product-thumb">
-                            <a href="{{route('product',['id' => $last->id, 'slug' => $last->slug])}}"></a><i class="fa fa-search-plus"></i> Quick view</button>
-                            <img src="{{\Illuminate\Support\Facades\Storage::url($last->image)}}" height="250" alt="">
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-price">{{$last->price}}</h3>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o empty"></i>
+                    <!-- Product Single -->
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                        <div class="product product-single">
+                            <div class="product-thumb">
+                                <a href="{{route('product',['id' => $last->id, 'slug' => $last->slug])}}"></a><i
+                                    class="fa fa-search-plus"></i> Quick view</button>
+                                <img src="{{\Illuminate\Support\Facades\Storage::url($last->image)}}" height="250"
+                                     alt="">
                             </div>
-                            <h2 class="product-name"><a href="#">{{$last->title}}</a></h2>
-                            <div class="product-btns">
-                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                <a href="{{route('addtocart',$last->id)}}" class="primary-btn add-to-cart">
-                                    <i  class="fa fa-shopping-cart"></i>
-                                    Add to Cart
-                                </a>
+                            <div class="product-body">
+                                <h3 class="product-price">{{$last->price}}</h3>
+                                @php
+                                    $average = \App\Http\Controllers\HomeController::averageview($last->id);
+                                    $countreview = \App\Http\Controllers\HomeController::countreview($last->id);
+                                @endphp
+                                <div class="product-rating">
+                                    <i class="fa fa-star @if($average<1) -o empty @endif"></i>
+                                    <i class="fa fa-star @if($average<2) -o empty @endif"></i>
+                                    <i class="fa fa-star @if($average<3) -o empty @endif"></i>
+                                    <i class="fa fa-star @if($average<4) -o empty @endif"></i>
+                                    <i class="fa fa-star @if($average<5) -o empty @endif"></i>
+                                    <i>{{ $countreview }}</i>
+                                </div>
+                                <h2 class="product-name"><a href="#">{{$last->title}}</a></h2>
+                                <div class="product-btns">
+                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                    <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                    <a href="{{route('addtocart',$last->id)}}" class="primary-btn add-to-cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Add to Cart
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /Product Single -->
+                    <!-- /Product Single -->
                 @endforeach
 
             </div>
@@ -165,33 +178,40 @@
 
                 <!-- Product Single -->
                 @foreach($pickeds as $picked)
-                <div class="col-md-3 col-sm-6 col-xs-6">
-                    <div class="product product-single">
-                        <div class="product-thumb">
-                            <a href="{{route('product',['id' => $picked->id, 'slug' => $picked->slug])}}"></a><i class="fa fa-search-plus"></i> Quick view</button>
-                            <img src="{{\Illuminate\Support\Facades\Storage::url($picked->image)}}" height="250" alt="">
-                        </div>
-                        <div class="product-body">
-                            <h3 class="product-price">{{$picked->price}}</h3>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o empty"></i>
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                        <div class="product product-single">
+                            <div class="product-thumb">
+                                <a href="{{route('product',['id' => $picked->id, 'slug' => $picked->slug])}}"></a><i
+                                    class="fa fa-search-plus"></i> Quick view</button>
+                                <img src="{{\Illuminate\Support\Facades\Storage::url($picked->image)}}" height="250"
+                                     alt="">
                             </div>
-                            <h2 class="product-name"><a href="#">{{$picked->title}}</a></h2>
-                            <div class="product-btns">
-                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                <a href="{{route('addtocart',$picked->id)}}" class="primary-btn add-to-cart">
-                                    <i  class="fa fa-shopping-cart"></i>
-                                    Add to Cart
-                                </a>
+                            <div class="product-body">
+                                <h3 class="product-price">{{$picked->price}}</h3>
+                                @php
+                                    $average = \App\Http\Controllers\HomeController::averageview($picked->id);
+                                    $countreview = \App\Http\Controllers\HomeController::countreview($picked->id);
+                                @endphp
+                                <div class="product-rating">
+                                    <i class="fa fa-star @if($average<1) -o empty @endif"></i>
+                                    <i class="fa fa-star @if($average<2) -o empty @endif"></i>
+                                    <i class="fa fa-star @if($average<3) -o empty @endif"></i>
+                                    <i class="fa fa-star @if($average<4) -o empty @endif"></i>
+                                    <i class="fa fa-star @if($average<5) -o empty @endif"></i>
+                                    <i>{{ $countreview }}</i>
+                                </div>
+                                <h2 class="product-name"><a href="#">{{$picked->title}}</a></h2>
+                                <div class="product-btns">
+                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                    <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                    <a href="{{route('addtocart',$picked->id)}}" class="primary-btn add-to-cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Add to Cart
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
                 <!-- /Product Single -->
 
