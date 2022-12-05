@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ReviewController;
@@ -126,4 +127,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('delete/{id}', [ReviewController::class, 'destroy'])->name('admin_review_delete');
         Route::get('show/{id}', [ReviewController::class, 'show'])->name('admin_review_show');
     });
+
+    Route::prefix('faq')->group(function () {
+        Route::get('/', [FaqController::class, 'index'])->name('admin_faq');
+        Route::get('create', [FaqController::class, 'create'])->name('admin_faq_create');
+        Route::post('store', [FaqController::class, 'store'])->name('admin_faq_store');
+        Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin_faq_edit');
+        Route::post('update/{id}', [FaqController::class, 'update'])->name('admin_faq_update');
+        Route::get('delete/{id}', [FaqController::class, 'destroy'])->name('admin_faq_delete');
+        Route::get('show', [FaqController::class, 'show'])->name('admin_faq_show');
+    });
+
 });

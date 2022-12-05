@@ -7,7 +7,7 @@
         <li><a href="{{route('home')}}">Company</a></li>
         <li><a href="{{route('home')}}">New Products</a></li>
         <li><a href="{{route('referances')}}">Referances</a></li>
-        <li><a href="{{route('faq')}}">Faq</a></li>
+        <li><a href="{{route('faq')}}">FAQ</a></li>
         <li><a href="{{route('contact')}}">Contact</a></li>
     </ul>
 </div>

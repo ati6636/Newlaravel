@@ -58,7 +58,15 @@
                     </a>
                 </li>
 
-                <li class="nav-header">LABELS</li>
+                <li>
+                    <a href="{{route('admin_faq')}}" class=" waves-effect">
+                        <i class="ri-calendar-2-line"></i>
+                        <span>Faq</span>
+                    </a>
+                </li>
+
+                <ul class="metismenu list-unstyled" id="side-menu">
+                    <li class="menu-title">Labels</li>
 
                 <li>
                     <a href="{{route('admin_settings')}}" class=" waves-effect">
