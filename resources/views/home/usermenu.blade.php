@@ -6,7 +6,7 @@
         <li><a href="#">My Orders</a></li>
         <li><a href="{{route('myreviews')}}">My Rewiews</a></li>
         <li><a href="#">My Shopcart</a></li>
-        <li><a href="#">My Messages</a></li>
+        <li><a href="{{route('user_products')}}">My Product</a></li>
         <li><a href="{{route('logout')}}">Logout</a></li>
     </ul>
 </div>

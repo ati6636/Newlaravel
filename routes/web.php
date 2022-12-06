@@ -5,12 +5,14 @@ use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +66,24 @@ Route::prefix('myaccount')->namespace('myaccount')->middleware('auth')->group(fu
 
 Route::prefix('user')->namespace('userprofile')->middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'index'])->name('userprofile');
+
+    Route::prefix('products')->group(function () {
+        Route::get('/', [ProductsController::class, 'index'])->name('user_products');
+        Route::get('create', [ProductsController::class, 'create'])->name('user_product_create');
+        Route::post('store', [ProductsController::class, 'store'])->name('user_product_store');
+        Route::get('edit/{id}', [ProductsController::class, 'edit'])->name('user_product_edit');
+        Route::post('update/{id}', [ProductsController::class, 'update'])->name('user_product_update');
+        Route::get('delete/{id}', [ProductsController::class, 'destroy'])->name('user_product_delete');
+        Route::get('show', [ProductsController::class, 'show'])->name('user_product_show');
+    });
+
+    Route::prefix('image')->group(function () {
+        Route::get('create/{id}', [ImagesController::class, 'create'])->name('user_image_create');
+        Route::post('store/{id}', [ImagesController::class, 'store'])->name('user_image_store');
+        Route::get('delete/{id}/{product_id}', [ImagesController::class, 'destroy'])->name('user_image_delete');
+        Route::get('show', [ImagesController::class, 'show'])->name('user_image_show');
+    });
+
 });
 
 /*

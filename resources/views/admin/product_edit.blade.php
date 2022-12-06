@@ -110,7 +110,7 @@
                                   <div class="row mb-3">
                                       <label for="detail" class="col-sm-2 col-form-label">Detail</label>
                                       <div class="col-sm-10">
-                                          <textarea id="elm1" name="detail" value="{!! $products->detail !!}"></textarea>
+                                          <textarea id="elm1" name="detail">{!! $products->detail !!}</textarea>
                                       </div>
                                   </div>
                                   <!-- end row -->
@@ -130,7 +130,7 @@
                                       <label for="image" class="col-sm-2 col-form-label">Image</label>
                                       <div class="col-sm-10">
                                           @if($products->image)
-                                              <img src="{{ asset( Storage::url($products->image )) }}" height="30" alt="">
+                                              <img src="{{ asset( Storage::url($products->image)) }}" height="30" alt="">
                                           @endif
                                           <input type="file" class="form-control form-control-color w-100" id="image" name="image">
                                       </div>
