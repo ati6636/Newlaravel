@@ -102,9 +102,13 @@
                         </tr>
                         </tfoot>
                     </table>
-                        <div class="pull-right">
-                            <button class="primary-btn">Place Order</button>
-                        </div>
+                        <form action="{{route('user_order_create')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="total" value="{{$total}}">
+                            <div class="pull-right">
+                                <button type="submit" class="primary-btn">Place Order</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\ImagesController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderitemController;
 use App\Http\Controllers\ShopcartController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -89,6 +91,16 @@ Route::prefix('user')->namespace('userprofile')->middleware('auth')->group(funct
         Route::post('store/{id}', [ShopcartController::class, 'store'])->name('user_shopcart_store');
         Route::post('update/{id}', [ShopcartController::class, 'update'])->name('user_shopcart_update');
         Route::get('delete/{id}', [ShopcartController::class, 'destroy'])->name('user_shopcart_delete');
+    });
+
+    Route::prefix('order')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('user_order');
+        Route::post('create', [OrderController::class, 'create'])->name('user_order_create');
+        Route::post('store', [OrderController::class, 'store'])->name('user_order_store');
+        Route::get('edit/{id}', [OrderController::class, 'edit'])->name('user_order_edit');
+        Route::post('update/{id}', [OrderController::class, 'update'])->name('user_order_update');
+        Route::get('delete/{id}', [OrderController::class, 'destroy'])->name('user_order_delete');
+        Route::get('show/{id}', [OrderController::class, 'show'])->name('user_order_show');
     });
 
 });
