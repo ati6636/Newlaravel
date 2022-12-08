@@ -15,9 +15,13 @@
         <div class="container">
             <ul class="breadcrumb">
                 <li><a href="{{route('home')}}">Home</a></li>
-                <li>{{\App\Http\Controllers\admin\CategoryController::getParentsTree($product->category, $product->category->title)}}></li>
+                <li>{{\App\Http\Controllers\admin\CategoryController::getParentsTree($product->category, $product->category->title)}}
+                </li>
                 <li class="active">{{$product->title}}</li>
             </ul>
+            <div>
+                @include('home.message')
+            </div>
         </div>
     </div>
     <!-- /BREADCRUMB -->
@@ -37,9 +41,9 @@
                                 <img src="{{\Illuminate\Support\Facades\Storage::url($product->image)}}" alt="">
                             </div>
                             @foreach($imageList as $list)
-                            <div class="product-view">
-                                <img src="{{\Illuminate\Support\Facades\Storage::url($list->image)}}" alt="">
-                            </div>
+                                <div class="product-view">
+                                    <img src="{{\Illuminate\Support\Facades\Storage::url($list->image)}}" alt="">
+                                </div>
                             @endforeach
                         </div>
                         <div id="product-view">
@@ -98,12 +102,19 @@
                             </div>
 
                             <div class="product-btns">
-                                <div class="qty-input">
-                                    <span class="text-uppercase">QTY: </span>
-                                    <input class="input" type="number">
-                                </div>
-                                <a href="{{route('addtocart',$product->id)}}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart
-                                </a>
+                                <form action="{{route('user_shopcart_store',$product->id)}}" method="post">
+                                    @csrf
+                                    <div class="qty-input">
+                                        <span class="text-uppercase">QTY: </span>
+                                        <input class="input" name="quantity" type="number" value="1"
+                                               max="{{$product->quantity}}">
+                                    </div>
+                                    <button type="submit" class="primary-btn add-to-cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Add to Cart
+                                    </button>
+                                </form>
+
                                 <div class="pull-right">
                                     <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                     <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
@@ -130,23 +141,27 @@
                                             <div class="product-reviews">
 
                                                 @foreach($reviews as $review)
-                                                <div class="single-review">
-                                                    <div class="review-heading">
-                                                        <div><a href="#"><i class="fa fa-user-o"></i> {{$review->user->name}}</a></div>
-                                                        <div><a href="#"><i class="fa fa-clock-o"></i>{{$review->created_at}} </a></div>
-                                                        <div class="review-rating pull-right">
-                                                            <i class="fa fa-star @if($review->rate<1) -o empty @endif"></i>
-                                                            <i class="fa fa-star @if($review->rate<2) -o empty @endif"></i>
-                                                            <i class="fa fa-star @if($review->rate<3) -o empty @endif"></i>
-                                                            <i class="fa fa-star @if($review->rate<4) -o empty @endif"></i>
-                                                            <i class="fa fa-star @if($review->rate<5) -o empty @endif"></i>
+                                                    <div class="single-review">
+                                                        <div class="review-heading">
+                                                            <div><a href="#"><i
+                                                                        class="fa fa-user-o"></i> {{$review->user->name}}
+                                                                </a></div>
+                                                            <div><a href="#"><i
+                                                                        class="fa fa-clock-o"></i>{{$review->created_at}}
+                                                                </a></div>
+                                                            <div class="review-rating pull-right">
+                                                                <i class="fa fa-star @if($review->rate<1) -o empty @endif"></i>
+                                                                <i class="fa fa-star @if($review->rate<2) -o empty @endif"></i>
+                                                                <i class="fa fa-star @if($review->rate<3) -o empty @endif"></i>
+                                                                <i class="fa fa-star @if($review->rate<4) -o empty @endif"></i>
+                                                                <i class="fa fa-star @if($review->rate<5) -o empty @endif"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-body">
+                                                            <strong>{{$review->subject}}</strong>
+                                                            <p>{{$review->review}}</p>
                                                         </div>
                                                     </div>
-                                                    <div class="review-body">
-                                                        <strong>{{$review->subject}}</strong>
-                                                        <p>{{$review->review}}</p>
-                                                    </div>
-                                                </div>
                                                 @endforeach
 
                                                 <ul class="reviews-pages">

@@ -87,12 +87,19 @@
                                         </div>
                                         <h2 class="product-name"><a href="#">{{$daily->title}}</a></h2>
                                         <div class="product-btns">
-                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                            <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                            <a href="{{route('addtocart',$daily->id)}}" class="primary-btn add-to-cart">
-                                                <i class="fa fa-shopping-cart"></i>
-                                                Add to Cart
-                                            </a>
+                                            <button class="main-btn btn-sm icon-btn"><i class="fa fa-heart"></i>
+                                            </button>
+                                            <button class="main-btn btn-sm icon-btn"><i class="fa fa-exchange"></i>
+                                            </button>
+                                            <form action="{{route('user_shopcart_store',$daily->id)}}" method="post">
+                                                @csrf
+                                                <input name="quantity" type="hidden" value="1"/>
+                                                <button type="submit"
+                                                        class="main-btn primary-btn btn-block add-to-cart">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    Add to Cart
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -152,10 +159,14 @@
                                 <div class="product-btns">
                                     <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                     <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                    <a href="{{route('addtocart',$last->id)}}" class="primary-btn add-to-cart">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart
-                                    </a>
+                                    <form action="{{route('user_shopcart_store',$last->id)}}" method="post">
+                                        @csrf
+                                        <input name="quantity" type="hidden" value="1"/>
+                                        <button type="submit" class="main-btn primary-btn btn-block add-to-cart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            Add to Cart
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -204,10 +215,14 @@
                                 <div class="product-btns">
                                     <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                     <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                    <a href="{{route('addtocart',$picked->id)}}" class="primary-btn add-to-cart">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        Add to Cart
-                                    </a>
+                                    <form action="{{route('user_shopcart_store',$picked->id)}}" method="post">
+                                        @csrf
+                                        <input name="quantity" type="hidden" value="1"/>
+                                        <button type="submit" class="main-btn primary-btn btn-block add-to-cart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            Add to Cart
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

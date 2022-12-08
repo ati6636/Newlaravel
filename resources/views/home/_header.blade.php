@@ -1,7 +1,7 @@
 @php
     $setting = \App\Http\Controllers\HomeController::getSetting()
 @endphp
-<!-- HEADER -->
+    <!-- HEADER -->
 <header>
     <!-- top Header -->
     <div id="top-header">
@@ -15,7 +15,8 @@
                     <li><a href="#">Newsletter</a></li>
                     <li><a href="{{route('faq')}}">FAQ</a></li>
                     <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">ENG <i class="fa fa-caret-down"></i></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">ENG <i
+                                class="fa fa-caret-down"></i></a>
                         <ul class="custom-menu">
                             <li><a href="#">English (ENG)</a></li>
                             <li><a href="#">Russian (Ru)</a></li>
@@ -24,7 +25,8 @@
                         </ul>
                     </li>
                     <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">USD <i class="fa fa-caret-down"></i></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">USD <i
+                                class="fa fa-caret-down"></i></a>
                         <ul class="custom-menu">
                             <li><a href="#">USD ($)</a></li>
                             <li><a href="#">EUR (€)</a></li>
@@ -64,15 +66,17 @@
                     <!-- Account -->
                     <li class="header-account dropdown default-dropdown">
                         @auth
-                        <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                            <div class="header-btns-icon">
-                                <i class="fa fa-user-o"></i>
+                            <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-user-o"></i>
+                                </div>
+                                <strong class="text-uppercase">{{\Illuminate\Support\Facades\Auth::user()->name}}<i
+                                        class="fa fa-caret-down"></i></strong>
                             </div>
-                            <strong class="text-uppercase">{{\Illuminate\Support\Facades\Auth::user()->name}}<i class="fa fa-caret-down"></i></strong>
-                        </div>
                         @endauth
                         @guest
-                        <a href="/login" class="text-uppercase">Login</a> / <a href="/register" class="text-uppercase">Join</a>
+                            <a href="/login" class="text-uppercase">Login</a> / <a href="/register"
+                                                                                   class="text-uppercase">Join</a>
                         @endguest
                         <ul class="custom-menu">
                             <li><a href="{{route('myprofile')}}"><i class="fa fa-user-o"></i> My Account</a></li>
@@ -87,13 +91,14 @@
                     <!-- Cart -->
                     <li class="header-cart dropdown default-dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <div class="header-btns-icon">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="qty">3</span>
-                            </div>
-                            <strong class="text-uppercase">My Cart:</strong>
-                            <br>
-                            <span>35.20$</span>
+                            <a href="{{route('user_shopcart')}}">
+                                <div class="header-btns-icon">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span
+                                        class="qty">{{\App\Http\Controllers\ShopcartController::countshopcart()}}</span>
+                                </div>
+                            </a>
+
                         </a>
                         <div class="custom-menu">
                             <div id="shopping-cart">
@@ -121,7 +126,8 @@
                                 </div>
                                 <div class="shopping-cart-btns">
                                     <button class="main-btn">View Cart</button>
-                                    <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+                                    <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
