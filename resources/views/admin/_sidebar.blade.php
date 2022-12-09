@@ -18,7 +18,7 @@
         </div>
 
         <!--- Sidemenu -->
-        <div id="sidebar-menu">
+        <div id="sidebar-menu" class="mm-active">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menü</li>
@@ -63,6 +63,21 @@
                         <i class="ri-calendar-2-line"></i>
                         <span>Faq</span>
                     </a>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="ri-mail-send-line"></i>
+                        <span>Orders</span>
+                    </a>
+                    <ul class="sub-menu " aria-expanded="true">
+                        <li><a href="{{route('admin_orders')}}">Orders</a></li>
+                        <li><a href="{{route('admin_order_list',['status' => 'new'])}}">New Order</a></li>
+                        <li><a href="{{route('admin_order_list',['status' => 'accepted'])}}">Accepted Order</a></li>
+                        <li><a href="{{route('admin_order_list',['status' => 'canceled'])}}">Canceled Order</a></li>
+                        <li><a href="{{route('admin_order_list',['status' => 'shipping'])}}">Shipping Order</a></li>
+                        <li><a href="{{route('admin_order_list',['status' => 'completed'])}}">Completed Order</a></li>
+                    </ul>
                 </li>
 
                 <ul class="metismenu list-unstyled" id="side-menu">
