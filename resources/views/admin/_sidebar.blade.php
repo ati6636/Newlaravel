@@ -9,11 +9,12 @@
                 <img src="{{asset('back/')}}/assets/images/users/avatar-1.jpg" alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
-              @auth
-                <h4 class="font-size-16 mb-1">{{Auth::user()->name}}</h4>
+                @auth
+                    <h4 class="font-size-16 mb-1">{{Auth::user()->name}}</h4>
                     <a href="{{route('logout')}}" class="d-block">Logout</a>
-                <span class="text-muted"><i class="ri-record-circle-line align-middle font-size-14 text-success"></i> Online</span>
-              @endauth
+                    <span class="text-muted"><i
+                            class="ri-record-circle-line align-middle font-size-14 text-success"></i> Online</span>
+                @endauth
             </div>
         </div>
 
@@ -83,14 +84,14 @@
                 <ul class="metismenu list-unstyled" id="side-menu">
                     <li class="menu-title">Labels</li>
 
-                <li>
-                    <a href="{{route('admin_settings')}}" class=" waves-effect">
-                        <i class="ri-calendar-2-line"></i>
-                        <span>Settings</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{route('admin_settings')}}" class=" waves-effect">
+                            <i class="ri-calendar-2-line"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
 
-            </ul>
+                </ul>
         </div>
         <!-- Sidebar -->
     </div>

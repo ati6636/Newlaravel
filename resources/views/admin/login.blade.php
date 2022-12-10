@@ -29,17 +29,17 @@
 
                         <div class="text-center mt-4">
                             <div class="mb-3">
-                                <a href="index.html" class="auth-logo">
+                                <a href="{{route('admin.home')}}" class="auth-logo">
                                     <img src="{{asset('back/')}}/assets/images/logo-dark.png" height="30" class="logo-dark mx-auto" alt="">
                                     <img src="{{asset('back/')}}/assets/images/logo-light.png" height="30" class="logo-light mx-auto" alt="">
                                 </a>
                             </div>
                         </div>
-
+                        @include('home.message')
                         <h4 class="text-muted text-center font-size-18"><b>Sign In</b></h4>
 
                         <div class="p-3">
-                            <form class="form-horizontal mt-3" method="post" action="{{route('admin.login.post')}}">
+                            <form class="form-horizontal mt-3" method="post" action="{{route('admin.logincheck')}}">
                               @csrf
                                 <div class="form-group mb-3 row">
                                     <div class="col-12">
@@ -65,15 +65,6 @@
                                 <div class="form-group mb-3 text-center row mt-3 pt-1">
                                     <div class="col-12">
                                         <button class="btn btn-info w-100 waves-effect waves-light" type="submit">Giriş Yap</button>
-                                    </div>
-                                </div>
-
-                                <div class="form-group mb-0 row mt-2">
-                                    <div class="col-sm-7 mt-3">
-                                        <a href="auth-recoverpw.html" class="text-muted"><i class="mdi mdi-lock"></i> Forgot your password?</a>
-                                    </div>
-                                    <div class="col-sm-5 mt-3">
-                                        <a href="auth-register.html" class="text-muted"><i class="mdi mdi-account-circle"></i> Create an account</a>
                                     </div>
                                 </div>
                             </form>

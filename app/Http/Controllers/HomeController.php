@@ -10,6 +10,7 @@ use App\Models\Message;
 use App\Models\Product;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
@@ -141,15 +142,26 @@ class HomeController extends Controller
 
     public function login()
     {
-        return view('home.login');
+        return view('admin.login');
     }
 
-    public function loginCheck(Request $request)
+    public function logincheck(Request $request)
     {
         if ($request->isMethod('post')) {
             $credentials = $request->only('email', 'password');
+            if(Auth::attempt($credentials))
+            {
+                $request->session()->regenerate();
+                return redirect()->intended('admin');
+            }
+            return back()->withErrors([
+                'email' => 'The provided Credentials do not match our records',
+            ]);
+        }else
+        {
+            return view('home.login');
         }
-        return view('home');
+
     }
 
 }

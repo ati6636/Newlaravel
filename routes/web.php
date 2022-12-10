@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderitemController;
 use App\Http\Controllers\ShopcartController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -113,82 +112,86 @@ BackEnd
 Admin Routes
 |--------------------------------------------------------------------------
 */
+Route::prefix('admin')->group(function () {
+    Route::get('login', [HomeController::class, 'login'])->name('admin.login');
+    Route::post('logincheck', [HomeController::class, 'logincheck'])->name('admin.logincheck');
+});
+
 Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::middleware('admin')->group(function () {
 
-    Route::get('/', [AdminHomeController::class, 'index'])->name('admin.home');
-    Route::get('login', [AdminHomeController::class, 'login'])->name('admin.login');
-    Route::post('login', [AdminHomeController::class, 'loginPost'])->name('admin.login.post');
-    Route::get('logout', [AdminHomeController::class, 'logout'])->name('admin.logout');
+        Route::get('/', [AdminHomeController::class, 'index'])->name('admin.home');
+        Route::get('logout', [AdminHomeController::class, 'logout'])->name('admin.logout');
 
+        Route::prefix('category')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('admin_category');
+            Route::get('add', [CategoryController::class, 'add'])->name('admin_category_add');
+            Route::post('create', [CategoryController::class, 'create'])->name('admin_category_create');
+            Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('admin_category_edit');
+            Route::post('update/{id}', [CategoryController::class, 'update'])->name('admin_category_update');
+            Route::get('delete/{id}', [CategoryController::class, 'destroy'])->name('admin_category_delete');
+            Route::get('show', [CategoryController::class, 'show'])->name('admin_category_show');
+        });
 
-    Route::prefix('category')->group(function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('admin_category');
-        Route::get('add', [CategoryController::class, 'add'])->name('admin_category_add');
-        Route::post('create', [CategoryController::class, 'create'])->name('admin_category_create');
-        Route::get('edit/{id}', [CategoryController::class, 'edit'])->name('admin_category_edit');
-        Route::post('update/{id}', [CategoryController::class, 'update'])->name('admin_category_update');
-        Route::get('delete/{id}', [CategoryController::class, 'destroy'])->name('admin_category_delete');
-        Route::get('show', [CategoryController::class, 'show'])->name('admin_category_show');
+        Route::prefix('product')->group(function () {
+            Route::get('/', [ProductController::class, 'index'])->name('admin_products');
+            Route::get('create', [ProductController::class, 'create'])->name('admin_product_create');
+            Route::post('store', [ProductController::class, 'store'])->name('admin_product_store');
+            Route::get('edit/{id}', [ProductController::class, 'edit'])->name('admin_product_edit');
+            Route::post('update/{id}', [ProductController::class, 'update'])->name('admin_product_update');
+            Route::get('delete/{id}', [ProductController::class, 'destroy'])->name('admin_product_delete');
+            Route::get('show', [ProductController::class, 'show'])->name('admin_product_show');
+        });
+
+        Route::prefix('message')->group(function () {
+            Route::get('/', [MessageController::class, 'index'])->name('admin_message');
+            Route::get('edit/{id?}', [MessageController::class, 'edit'])->name('admin_message_edit');
+            Route::post('update/{id}', [MessageController::class, 'update'])->name('admin_message_update');
+            Route::get('delete/{id}', [MessageController::class, 'destroy'])->name('admin_message_delete');
+            Route::get('show', [MessageController::class, 'show'])->name('admin_message_show');
+        });
+
+        Route::prefix('image')->group(function () {
+            Route::get('create/{id}', [ImageController::class, 'create'])->name('admin_image_create');
+            Route::post('store/{id}', [ImageController::class, 'store'])->name('admin_image_store');
+            Route::get('delete/{id}/{product_id}', [ImageController::class, 'destroy'])->name('admin_image_delete');
+            Route::get('show', [ImageController::class, 'show'])->name('admin_image_show');
+        });
+
+        Route::prefix('setting')->group(function () {
+            Route::get('/', [SettingController::class, 'index'])->name('admin_settings');
+            Route::post('update/{id}', [SettingController::class, 'update'])->name('admin_setting_update');
+        });
+
+        Route::prefix('review')->group(function () {
+            Route::get('/', [ReviewController::class, 'index'])->name('admin_review');
+            Route::post('update/{id}', [ReviewController::class, 'update'])->name('admin_review_update');
+            Route::get('delete/{id}', [ReviewController::class, 'destroy'])->name('admin_review_delete');
+            Route::get('show/{id}', [ReviewController::class, 'show'])->name('admin_review_show');
+        });
+
+        Route::prefix('faq')->group(function () {
+            Route::get('/', [FaqController::class, 'index'])->name('admin_faq');
+            Route::get('create', [FaqController::class, 'create'])->name('admin_faq_create');
+            Route::post('store', [FaqController::class, 'store'])->name('admin_faq_store');
+            Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin_faq_edit');
+            Route::post('update/{id}', [FaqController::class, 'update'])->name('admin_faq_update');
+            Route::get('delete/{id}', [FaqController::class, 'destroy'])->name('admin_faq_delete');
+            Route::get('show', [FaqController::class, 'show'])->name('admin_faq_show');
+        });
+
+        Route::prefix('order')->group(function () {
+            Route::get('/', [AdminOrderController::class, 'index'])->name('admin_orders');
+            Route::get('list/{status}', [AdminOrderController::class, 'list'])->name('admin_order_list');
+            Route::post('create', [AdminOrderController::class, 'create'])->name('admin_order_create');
+            Route::post('store', [AdminOrderController::class, 'store'])->name('admin_order_store');
+            Route::get('edit/{id}', [AdminOrderController::class, 'edit'])->name('admin_order_edit');
+            Route::post('update/{id}', [AdminOrderController::class, 'update'])->name('admin_order_update');
+            Route::post('itemupdate/{id}', [AdminOrderController::class, 'itemupdate'])->name('admin_order_item_update');
+            Route::get('delete/{id}', [AdminOrderController::class, 'destroy'])->name('admin_order_delete');
+            Route::get('show/{id}', [AdminOrderController::class, 'show'])->name('admin_order_show');
+        });
+
     });
-
-    Route::prefix('product')->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('admin_products');
-        Route::get('create', [ProductController::class, 'create'])->name('admin_product_create');
-        Route::post('store', [ProductController::class, 'store'])->name('admin_product_store');
-        Route::get('edit/{id}', [ProductController::class, 'edit'])->name('admin_product_edit');
-        Route::post('update/{id}', [ProductController::class, 'update'])->name('admin_product_update');
-        Route::get('delete/{id}', [ProductController::class, 'destroy'])->name('admin_product_delete');
-        Route::get('show', [ProductController::class, 'show'])->name('admin_product_show');
-    });
-
-    Route::prefix('message')->group(function () {
-        Route::get('/', [MessageController::class, 'index'])->name('admin_message');
-        Route::get('edit/{id?}', [MessageController::class, 'edit'])->name('admin_message_edit');
-        Route::post('update/{id}', [MessageController::class, 'update'])->name('admin_message_update');
-        Route::get('delete/{id}', [MessageController::class, 'destroy'])->name('admin_message_delete');
-        Route::get('show', [MessageController::class, 'show'])->name('admin_message_show');
-    });
-
-    Route::prefix('image')->group(function () {
-        Route::get('create/{id}', [ImageController::class, 'create'])->name('admin_image_create');
-        Route::post('store/{id}', [ImageController::class, 'store'])->name('admin_image_store');
-        Route::get('delete/{id}/{product_id}', [ImageController::class, 'destroy'])->name('admin_image_delete');
-        Route::get('show', [ImageController::class, 'show'])->name('admin_image_show');
-    });
-
-    Route::prefix('setting')->group(function () {
-        Route::get('/', [SettingController::class, 'index'])->name('admin_settings');
-        Route::post('update/{id}', [SettingController::class, 'update'])->name('admin_setting_update');
-    });
-
-    Route::prefix('review')->group(function () {
-        Route::get('/', [ReviewController::class, 'index'])->name('admin_review');
-        Route::post('update/{id}', [ReviewController::class, 'update'])->name('admin_review_update');
-        Route::get('delete/{id}', [ReviewController::class, 'destroy'])->name('admin_review_delete');
-        Route::get('show/{id}', [ReviewController::class, 'show'])->name('admin_review_show');
-    });
-
-    Route::prefix('faq')->group(function () {
-        Route::get('/', [FaqController::class, 'index'])->name('admin_faq');
-        Route::get('create', [FaqController::class, 'create'])->name('admin_faq_create');
-        Route::post('store', [FaqController::class, 'store'])->name('admin_faq_store');
-        Route::get('edit/{id}', [FaqController::class, 'edit'])->name('admin_faq_edit');
-        Route::post('update/{id}', [FaqController::class, 'update'])->name('admin_faq_update');
-        Route::get('delete/{id}', [FaqController::class, 'destroy'])->name('admin_faq_delete');
-        Route::get('show', [FaqController::class, 'show'])->name('admin_faq_show');
-    });
-
-    Route::prefix('order')->group(function () {
-        Route::get('/', [AdminOrderController::class, 'index'])->name('admin_orders');
-        Route::get('list/{status}', [AdminOrderController::class, 'list'])->name('admin_order_list');
-        Route::post('create', [AdminOrderController::class, 'create'])->name('admin_order_create');
-        Route::post('store', [AdminOrderController::class, 'store'])->name('admin_order_store');
-        Route::get('edit/{id}', [AdminOrderController::class, 'edit'])->name('admin_order_edit');
-        Route::post('update/{id}', [AdminOrderController::class, 'update'])->name('admin_order_update');
-        Route::post('itemupdate/{id}', [AdminOrderController::class, 'itemupdate'])->name('admin_order_item_update');
-        Route::get('delete/{id}', [AdminOrderController::class, 'destroy'])->name('admin_order_delete');
-        Route::get('show/{id}', [AdminOrderController::class, 'show'])->name('admin_order_show');
-    });
-
 
 });
