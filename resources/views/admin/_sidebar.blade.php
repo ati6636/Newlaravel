@@ -6,7 +6,7 @@
         <!-- User details -->
         <div class="user-profile text-center mt-3">
             <div class="">
-                <img src="{{asset('back/')}}/assets/images/users/avatar-1.jpg" alt="" class="avatar-md rounded-circle">
+                <img src="{{Storage::url(Auth::user()->profile_photo_path)}}" alt="" class="avatar-md rounded-circle">
             </div>
             <div class="mt-3">
                 @auth
@@ -79,6 +79,13 @@
                         <li><a href="{{route('admin_order_list',['status' => 'shipping'])}}">Shipping Order</a></li>
                         <li><a href="{{route('admin_order_list',['status' => 'completed'])}}">Completed Order</a></li>
                     </ul>
+                </li>
+
+                <li>
+                    <a href="{{route('admin_users')}}" class=" waves-effect">
+                        <i class="ri-calendar-2-line"></i>
+                        <span>User</span>
+                    </a>
                 </li>
 
                 <ul class="metismenu list-unstyled" id="side-menu">

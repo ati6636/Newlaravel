@@ -71,7 +71,7 @@
                                     <i class="fa fa-user-o"></i>
                                 </div>
                                 <strong class="text-uppercase">{{Auth::user()->name}}<i
-                                        class="fa fa-caret-down"></i>{{Auth::user()->roles->pluck('name')}}</strong>
+                                        class="fa fa-caret-down"></i></strong>
                             </div>
                         @endauth
                         @guest

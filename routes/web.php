@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\MessageController;
@@ -191,6 +192,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             Route::get('delete/{id}', [AdminOrderController::class, 'destroy'])->name('admin_order_delete');
             Route::get('show/{id}', [AdminOrderController::class, 'show'])->name('admin_order_show');
         });
+
+        Route::prefix('user')->group(function () {
+            Route::get('/', [AdminUserController::class, 'index'])->name('admin_users');
+            Route::get('create', [AdminUserController::class, 'create'])->name('admin_user_create');
+            Route::post('store', [AdminUserController::class, 'store'])->name('admin_user_store');
+            Route::get('edit/{id}', [AdminUserController::class, 'edit'])->name('admin_user_edit');
+            Route::post('update/{id}', [AdminUserController::class, 'update'])->name('admin_user_update');
+            Route::get('delete/{id}', [AdminUserController::class, 'destroy'])->name('admin_user_delete');
+            Route::get('show/{id}', [AdminUserController::class, 'show'])->name('admin_user_show');
+            Route::get('userrole/{id}', [AdminUserController::class, 'user_roles'])->name('admin_user_roles');
+            Route::post('userrolestore/{id}', [AdminUserController::class, 'user_role_store'])->name('admin_user_role_store');
+            Route::get('userroledelete/{userid}/{roleid}', [AdminUserController::class, 'user_role_delete'])->name('admin_user_role_delete');
+        });
+
 
     });
 
